@@ -17,7 +17,7 @@ if __name__ == '__main__':
     parser.add_argument('--num-class', type=int, default=39)
     parser.add_argument('--label-type', type=str, default='MW')
     parser.add_argument('--num-chan', type=int, default=39)#### changed for clf
-    parser.add_argument('--num-time', type=int, default=32)## number of datapoints
+    parser.add_argument('--num-time', type=int, default=2880)## number of datapoints
     parser.add_argument('--segment', type=int, default=4, help='segment length in seconds')
     parser.add_argument('--trial-duration', type=int, default=60, help='trial duration in seconds')
     parser.add_argument('--overlap', type=float, default=0)

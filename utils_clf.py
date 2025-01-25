@@ -9,25 +9,17 @@ import re
 
 
 class EEGImageDataset(Dataset):
-    def __init__(self, eeg_data, image_paths, labels, transform=None):
+    def __init__(self, eeg_data, labels):
         self.eeg_data = eeg_data
-        self.image_paths = image_paths
         self.labels = labels
-        self.transform = transform
-        self.base_path = './imageNet_images'
 
     def __len__(self):
         return len(self.labels)
 
     def __getitem__(self, idx):
         eeg = torch.tensor(self.eeg_data[idx], dtype=torch.float32)
-        image = Image.open(self.image_paths[idx]).convert('RGB')
-        if self.transform:
-            image = self.transform(image)
-        else:
-            image = torch.tensor(np.array(image), dtype=torch.float32).permute(2, 0, 1) / 255.0
         label = torch.tensor(self.labels[idx], dtype=torch.long)
-        return eeg, image
+        return eeg, label
     
 
 
@@ -40,22 +32,18 @@ def create_dataset(train_batch_size, train_data_path='processed_data/train_data.
     test_data = np.load(test_data_path,  mmap_mode="r", allow_pickle=True)
     
     # Load image paths and labels from CSV
-    train_image_data = pd.read_csv(train_csv_path)
-    test_image_data = pd.read_csv(test_csv_path)
+    # train_image_data = pd.read_csv(train_csv_path)
+    # test_image_data = pd.read_csv(test_csv_path)
 
     # Create datasets
     train_dataset = EEGImageDataset(
         eeg_data=train_data['eeg'],
-        image_paths=train_image_data['image_paths'].tolist(),
-        labels=train_data['labels'],
-        transform=transform
+        labels=train_data['labels']
     )
 
     test_dataset = EEGImageDataset(
         eeg_data=test_data['eeg'],
-        image_paths=test_image_data['image_paths'].tolist(),
-        labels=test_data['labels'],
-        transform=transform
+        labels=test_data['labels']
     )
 
     # Create DataLoaders
