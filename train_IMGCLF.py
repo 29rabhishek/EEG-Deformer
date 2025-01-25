@@ -65,7 +65,7 @@ if __name__ == '__main__':
     
     data_to_print = [
         ['dataset', args.dataset],
-        ['gpu', args.gpus]
+        ['gpu', args.gpu],
         ['model',args.model],
         ['load_path', args.load_path],
         ['batch_size', args.batch_size],

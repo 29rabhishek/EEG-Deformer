@@ -27,7 +27,7 @@ class EEGImageDataset(Dataset):
         else:
             image = torch.tensor(np.array(image), dtype=torch.float32).permute(2, 0, 1) / 255.0
         label = torch.tensor(self.labels[idx], dtype=torch.long)
-        return eeg, image, label
+        return eeg, image
     
 
 
