@@ -178,11 +178,12 @@ def count_parameters(model):
 
 
 if __name__ == "__main__":
-    data = torch.ones((16, 32, 1000))
-    emt = Deformer(num_chan=32, num_time=1000, temporal_kernel=11, num_kernel=64,
-                 num_classes=2, depth=4, heads=16,
+    data = torch.ones((16, 128, 1000))
+    emt = Deformer(num_chan=128, num_time=1000, temporal_kernel=11, num_kernel=64,
+                 num_classes=40, depth=4, heads=16,
                  mlp_dim=16, dim_head=16, dropout=0.5)
     print(emt)
     print(count_parameters(emt))
 
     out = emt(data)
+    print(f"dummy Data output: {out.shape}")
